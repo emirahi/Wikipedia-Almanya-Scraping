@@ -7,10 +7,6 @@ from selenium.webdriver.common.proxy import Proxy
 from selenium.common.exceptions import TimeoutException
 from time import sleep
 import logging
-import xlsxwriter 
-
-
-# https://www.eventseye.com/
 
 readed = []  # readed user-agent bilgisi tutucak
 
@@ -26,7 +22,7 @@ def exceptLog(msg):
         logging.exception(e)
     return False
 
-
+# User-Agent Dosyamı okuyorum
 def userAgentRead():
     try:
         with open("user-agent.txt", "r", encoding="utf-8") as file:
@@ -37,8 +33,6 @@ def userAgentRead():
     except Exception as e:
         exceptLog(e)
     return False
-
-# User-Agent Dosyamı okuyorum
 
 
 def getUserAgent():
@@ -73,8 +67,7 @@ def main():
     print("5 saniye bekleyiniz")
     sleep(2)
     wait = WebDriverWait(browser, 5)
-    #document.querySelectorAll("body table ul>li>a")[111].textContent = "Bad Frankenhausen/Kyffhäuser"
-    # Bazı verilerin içinde / karakterinden sonrasını yok etmen gerek
+    
     try:
         datas = wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, "body table ul>li>a")))
         orjinalDatas = []
@@ -91,7 +84,7 @@ def main():
     except Exception as e:
         print(e)
     finally:
-        input("BROWSER KAPANICAK:")
+        input("BROWSER KAPANICAK : ")
         browser.close()
 
 if __name__ == "__main__":
