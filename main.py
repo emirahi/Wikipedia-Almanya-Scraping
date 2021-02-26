@@ -45,9 +45,6 @@ def getUserAgent():
         readed.remove(userAgent)
     return userAgent
 
-# selenium modülümün hangi bilgiler ile websiteyi ziyaret ediceğini giriyorum.
-
-
 def getProfile():
     if not len(readed) > 0:
         userAgentRead()
@@ -60,11 +57,12 @@ def getProfile():
 def main():
     firefoxProfile = getProfile()
     browser = webdriver.Firefox(firefox_profile=firefoxProfile)
+    print("Browser Açılyor.")
     sleep(2)
     browser.get("https://en.wikipedia.org/wiki/List_of_cities_and_towns_in_Germany")
     # browserın tam açılmasını bekliyorum
     # website yüklendikten belirli bir süre sonra işlem yapmamı imkan sağlar.
-    print("5 saniye bekleyiniz")
+    print("2 saniye bekleyiniz.")
     sleep(2)
     wait = WebDriverWait(browser, 5)
     
@@ -76,13 +74,15 @@ def main():
             orjinalDatas.append(data.text)
             if data.text == "Zwönitz":
                 break
-        print(orjinalDatas)
+                
+        #print(orjinalDatas)
         with open("GermanyTown.txt","w",encoding="utf8") as file:
             for data in orjinalDatas:
                 file.writelines(data + "\n")
 
     except Exception as e:
         print(e)
+        exceptLog(e)
     finally:
         input("BROWSER KAPANICAK : ")
         browser.close()
